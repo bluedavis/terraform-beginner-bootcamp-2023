@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+#Install Terraform using Homebrew mac OS X
+
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+brew update
+brew upgrade hashicorp/tap/terraform
+
+#Verify the installation
+
+terraform -help
+terraform -help plan
+
+#Enable tab completion
+
+touch ~/.bashrc
+terraform -install-autocomplete
