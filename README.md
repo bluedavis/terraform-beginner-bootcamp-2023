@@ -1,10 +1,12 @@
-# Terraform Beginner Bootcamp 2023
+# Terraform 101: A Beginner's Guide 2023
 
-## Semantic Versioning
+Configuring your environment to start working with Terraform.
 
-This project is going to utilize semantic versioning for its tagging.
-[semver.org](https://smver.org/)
+## Overview 
+### Semantic Versioning
 
+This project uses semantic versioning for its tagging. See
+[semver.org](https://smver.org/) for more info.
 
 The general format:
 
@@ -14,74 +16,76 @@ The general format:
 - **MINOR** version when you add functionality in a backward compatible manner
 - **PATCH** version when you make backward compatible bug fixes
 
-## Install the Terraform CLI
+## Prerequisites
 
-### Considerations with the Terraform CLI changes
+### Gitpod
 
-The Terraform CLI installation instructions have changed due to gpg keyring changes. So we needed to refer to the latest install CLI instructions via Terraform Docuemntation and changes to the scripting for install. 
+To optimize your developement environment you can use the open source tool [Gitpod CLI](https://www.gitpod.io/docs/introduction/getting-started). It allows you to reproduce the Cloud Development Environment (CDE) through the use of customizable ["workspaces"](https://www.gitpod.io/docs/configure/workspaces), ephemeral development environments.
 
-[Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+#### Gitpod CLI
 
-### Considerations for Linux Distribution
+All Gitpod workspaces include a CLI (gp). For more info see the [Gitpod CLI Reference Doc](https://www.gitpod.io/docs/references/gitpod-cli).
 
-This project is built against Ubuntu. 
-Please consider checking your Linux Distribution and change accordingly to distribution needs.
+### Install the Terraform CLI
 
-[How To Check OS Version in Linux](https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/)
+1) Check your Linux Distribution. See [How To Check OS Version in Linux](https://www.cyberciti.biz/faq/how-to-check-os-version-in-linux-command-line/).
+   - Your version of Linux affects the type of commands you can run.
+    - This project is built against Ubuntu. Example of checking Linux OS Version:
 
-Example of checking OS Version:
+          ```
+          cat /etc/os-release
+          ```
+      eg. Output:
 
-```
-$cat /etc/os-release
+          ```
+          PRETTY_NAME="Ubuntu 22.04.3 LTS"
+          NAME="Ubuntu"
+          VERSION_ID="22.04"
+          VERSION="22.04.3 LTS (Jammy Jellyfish)"
+          VERSION_CODENAME=jammy
+          ID=ubuntu
+          ID_LIKE=debian
+          HOME_URL="https://www.ubuntu.com/"
+          SUPPORT_URL="https://help.ubuntu.com/"
+          BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+          PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+          UBUNTU_CODENAME=jammy
+          ```
 
-PRETTY_NAME="Ubuntu 22.04.3 LTS"
-NAME="Ubuntu"
-VERSION_ID="22.04"
-VERSION="22.04.3 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
-ID=ubuntu
-ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
-```
+3) Refer to the latest [Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) instructions.
+    - Alternatively: You can use the bash script here: [./bin/install_terraform_cli](./bin/install_terraform_cli) to install terraform using homebrew macOS X.
 
-### Refactoring into Bash Scripts 
+## Refactoring into Bash Scripts
 
-While fixing the Terraform CLI gpg deprication issues we noticed that bash scripts steps were a considerable amount more code. So we decided to create a bash scirpt to install the Terraform CLI.
+To address the Terraform CLI GPG deprication issues and efficiently install the cli considering the additional steps we created a bash scirpt. The bash script:
+              -   Keeps the Gitpod Task File ([gitpod.yml](.gitpod.yml)) tidy.
+              -   Makes it easier to debug and execute homebrew macOS X Terraform CLI install.
+              -   Allows for better portability for other project that need to install Terraform CLI.
 
-This bash script is located here: [./bin/install_terraform_cli](./bin/install_terraform_cli)
+## Considerations
+### Shebang Considerations
 
-- This will keep the Gitpod Task File ([gitpod.yml](.gitpod.yml)) tidy.
-- This allow for an easier to debug and execute manually Terraform CLI install
-- This will allow better portability for other project that need to install Terraform CLI.
+On Linux, a Shebang (#!), pronounced Sha-bang, is a special line at the beginning of a script that tells the OS which program to use to run the script. eg. `#!/bin/bash`. It's the first line of the script and starts with `#!` followed by the program's path. 
 
-#### Shebang Considerations
+ChatGBT recommended this format for bash: `#!/usr/bin/env bash` for 1) protability for different OS distributions and to 2) search the user's PATH for the bash executable
 
-A Shebang (pronounced Sha.bang) tells the bash script what program that will interpret the script. eg. `#!/bin/bash`
+More info on Shebang [here](https://en.wikipedia.org/wiki/Shebang_(Unix))
 
-ChatGBT recommended this format for bash: `#!/usr/bin/env bash`
+### Execution Considerations 
 
-- for protability for different OS distributions 
-- will search the user's PATH for the bash executable
+#### GitPod Lifecycle (Before, Init, Command
 
-https://en.wikipedia.org/wiki/Shebang_(Unix)
+Be mindful when using `init` because the script will not rerun if we restart an existing workspace.
+See Gitpod Tasks [documentation](https://www.gitpod.io/docs/configure/workspaces/tasks) for more information.
+- This is why one of the changes we made to the Gitpod Task File ([gitpod.yml](.gitpod.yml)) was replaceing `init` with `before`.
 
-#### Execution Considerations 
+When executing the bash script we can use the `./` shorthand notation to execute the bash script eg. `./bin/install_terraform_cli` instead of `source`. 
 
-When executing the bash script we can use the `./` shorthand notation to execute the bash script.
+If we are using a script however in the gitpod.yml we need to point the script to a program to interpret it eg. `source ./bin/install_terraform_cli`
 
-eg. `./bin/install_terraform_cli`
+### Linux Permissions Considerations
 
-If we are using a script in .gitpod.yml we need to point the script to a program to interpret it.
-
-eg. `source ./bin/install_terraform_cli`
-
-#### Linux Permissions Considerations
-
-In order to make our bash scripts executable we need to change Linux permissions for the file to be executable at the user mode.
+In order to make our bash scripts executable we need to change Linux permissions for the file to be executable at the user mode. For more info on changing linux permisisons see [this](https://en.wikipedia.org/wiki/Chmod).
 
 ```sh
 chomd u+x ./bin/install_terraform_cli
@@ -90,11 +94,3 @@ alternatively:
 ```sh
 chmodn 744 ./bin/install_terraform_cli
 ```
-
-https://en.wikipedia.org/wiki/Chmod
-
-### Github Lifecycle (Before, Init, Command)
-
-We need to be careful when using Init because it will not rerun if we restart an existing workspace.
-
-https://www.gitpod.io/docs/configure/workspaces/tasks
