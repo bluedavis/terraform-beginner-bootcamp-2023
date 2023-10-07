@@ -99,7 +99,7 @@ chmodn 744 ./bin/install_terraform_cli
 #### Bash Commands
 
 `env` - to list all env vars
-`env | grep VARIABLE` - set a variable inline
+`env | grep VARIABLE` - set a variable in terminal
 
 #### Setting and Unsetting Env Vars
 
