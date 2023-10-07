@@ -84,7 +84,7 @@ eg. `source ./bin/install_terraform_cli`
 #### Linux Permissions Considerations
 
 In order to make our bash scripts executable we need to change Linux permissions for the file to be executable at the user mode.
-=======
+
 ## Prerequisites
 
 ### Gitpod
@@ -214,3 +214,17 @@ Gitpod has default env vars set for every workspace. To set new env vars in Gitp
 `env | grep GITPOD` - lists all default Gitpod env vars
 `gp env VARIABLE` - set a varaible in gitpod
 `echo VARIABLE` - (create a new workspace to view newly set env vars
+
+## Semantic Versioning
+
+This project is going to utilize semantic versioning for its tagging.
+[semver.org](https://smver.org/)
+
+
+The general format:
+
+**MAJOR.MINOR.PATCH**, eg. `1.0.1`
+
+- **MAJOR** version when you make incompatible API changes
+- **MINOR** version when you add functionality in a backward compatible manner
+- **PATCH** version when you make backward compatible bug fixes
