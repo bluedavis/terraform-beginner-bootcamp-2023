@@ -94,3 +94,48 @@ alternatively:
 ```sh
 chmodn 744 ./bin/install_terraform_cli
 ```
+### Working with Environment Variables (Env Vars)
+
+Set en vars in bash profile.
+
+#### Bash Commands
+
+`env` - to list all env vars
+`env | grep VARIABLE` - set a varaible inline
+
+#### Setting and Unsetting Env Vars
+
+`export VARIABLE= 'value'` - set a varaible 
+`unset VARIABLE` - unset a variable
+
+To temporarily set an env var, run the following command:
+
+```sh
+VARIABLE='value' ./bin/print_message
+```
+
+Within a bash script we can set an env without writing `export`:
+
+```sh
+#!/usr/bin/env bash
+
+VARIABLE='value'
+
+echo $VARIABLE
+```
+#### Printing Vars
+
+We can print an env var using echo eg. `echo $VARIABLE`
+
+#### Scoping of ENv Vars
+
+When you open a new bash terminal in VSCode it will not be aware of env vars set in another window. To persist env vars across all furture terminals. You need to set env vars in your bash profile. eg. `.bash_profile`
+
+#### Persisting Env Vars in Gitpod 
+
+Gitpod has default env vars set for every workspace. To set new env vars in Gitpod and have them persist across all your future workspaces follow this, please see [this](https://www.gitpod.io/docs/configure/projects/environment-variables).
+
+`env | grep GITPOD` - lists all default Gitpod env vars
+`gp env VARIABLE` - set a varaible in gitpod
+`echo VARIABLE` - (create a new workspace to view newly set env vars
+
