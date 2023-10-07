@@ -20,7 +20,7 @@ The general format:
 
 ### Gitpod
 
-To optimize your developement environment you can use the open source tool [Gitpod CLI](https://www.gitpod.io/docs/introduction/getting-started). It allows you to reproduce the Cloud Development Environment (CDE) through the use of customizable ["workspaces"](https://www.gitpod.io/docs/configure/workspaces), ephemeral development environments.
+To optimize your development environment you can use the open source tool [Gitpod CLI](https://www.gitpod.io/docs/introduction/getting-started). It allows you to reproduce the Cloud Development Environment (CDE) through the use of customizable ["workspaces"](https://www.gitpod.io/docs/configure/workspaces), ephemeral development environments.
 
 #### Gitpod CLI
 
@@ -57,7 +57,7 @@ All Gitpod workspaces include a CLI (gp). For more info see the [Gitpod CLI Refe
 
 ## Refactoring into Bash Scripts
 
-To address the Terraform CLI GPG deprication issues and efficiently install the cli considering the additional steps we created a bash scirpt. The bash script:
+To address the Terraform CLI GPG deprecation issues and efficiently install the cli considering the additional steps we created a bash scirpt. The bash script:
               -   Keeps the Gitpod Task File ([gitpod.yml](.gitpod.yml)) tidy.
               -   Makes it easier to debug and execute homebrew macOS X Terraform CLI install.
               -   Allows for better portability for other project that need to install Terraform CLI.
@@ -67,17 +67,17 @@ To address the Terraform CLI GPG deprication issues and efficiently install the 
 
 On Linux, a Shebang (#!), pronounced Sha-bang, is a special line at the beginning of a script that tells the OS which program to use to run the script. eg. `#!/bin/bash`. It's the first line of the script and starts with `#!` followed by the program's path. 
 
-ChatGBT recommended this format for bash: `#!/usr/bin/env bash` for 1) protability for different OS distributions and to 2) search the user's PATH for the bash executable
+ChatGBT recommended this format for bash: `#!/usr/bin/env bash` for 1) portability for different OS distributions and to 2) search the user's PATH for the bash executable
 
 More info on Shebang [here](https://en.wikipedia.org/wiki/Shebang_(Unix))
 
 ### Execution Considerations 
 
-#### GitPod Lifecycle (Before, Init, Command
+#### GitPod Lifecycle (Before, Init, Command)
 
 Be mindful when using `init` because the script will not rerun if we restart an existing workspace.
 See Gitpod Tasks [documentation](https://www.gitpod.io/docs/configure/workspaces/tasks) for more information.
-- This is why one of the changes we made to the Gitpod Task File ([gitpod.yml](.gitpod.yml)) was replaceing `init` with `before`.
+- This is why one of the changes we made to the Gitpod Task File ([gitpod.yml](.gitpod.yml)) was replacing `init` with `before`.
 
 When executing the bash script we can use the `./` shorthand notation to execute the bash script eg. `./bin/install_terraform_cli` instead of `source`. 
 
@@ -85,7 +85,7 @@ If we are using a script however in the gitpod.yml we need to point the script t
 
 ### Linux Permissions Considerations
 
-In order to make our bash scripts executable we need to change Linux permissions for the file to be executable at the user mode. For more info on changing linux permisisons see [this](https://en.wikipedia.org/wiki/Chmod).
+In order to make our bash scripts executable we need to change Linux permissions for the file to be executable at the user mode. For more info on changing linux permissions see [this](https://en.wikipedia.org/wiki/Chmod).
 
 ```sh
 chomd u+x ./bin/install_terraform_cli
@@ -99,11 +99,11 @@ chmodn 744 ./bin/install_terraform_cli
 #### Bash Commands
 
 `env` - to list all env vars
-`env | grep VARIABLE` - set a varaible inline
+`env | grep VARIABLE` - set a variable in terminal
 
 #### Setting and Unsetting Env Vars
 
-`export VARIABLE= 'value'` - set a varaible 
+`export VARIABLE= 'value'` - set a variable 
 `unset VARIABLE` - unset a variable
 
 To temporarily set an env var, run the following command:
@@ -125,15 +125,14 @@ echo $VARIABLE
 
 We can print an env var using echo eg. `echo $VARIABLE`
 
-#### Scoping of ENv Vars
+#### Scoping of Env Vars
 
-When you open a new bash terminal in VSCode it will not be aware of env vars set in another window. To persist env vars across all furture terminals. You need to set env vars in your bash profile. eg. `.bash_profile`
+When you open a new bash terminal in VSCode it will not be aware of env vars set in another window. To persist env vars across all future terminals. You need to set env vars in your bash profile. eg. `.bash_profile`
 
 #### Persisting Env Vars in Gitpod 
 
 Gitpod has default env vars set for every workspace. To set new env vars in Gitpod and have them persist across all your future workspaces follow this, please see [this](https://www.gitpod.io/docs/configure/projects/environment-variables).
 
 `env | grep GITPOD` - lists all default Gitpod env vars
-`gp env VARIABLE` - set a varaible in gitpod
+`gp env VARIABLE` - set a variable in gitpod
 `echo VARIABLE` - (create a new workspace to view newly set env vars
-
