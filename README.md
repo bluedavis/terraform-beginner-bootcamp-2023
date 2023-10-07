@@ -96,8 +96,6 @@ chmodn 744 ./bin/install_terraform_cli
 ```
 ### Working with Environment Variables (Env Vars)
 
-Set en vars in bash profile.
-
 #### Bash Commands
 
 `env` - to list all env vars
