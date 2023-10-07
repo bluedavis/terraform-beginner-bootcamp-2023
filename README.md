@@ -159,7 +159,7 @@ If it is successful you should see a json payload return:
 }
 ```
 Use `aws configure` when you are on a local computer and when in a cloud developer environement you'll want to set your env vars.
-```
+
 ### Create an new AWS IAM user
 
 We'll need to generate AWS CLI credentials from an IAM user in order to use the AWS CLI. To create a new user please follow these instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
