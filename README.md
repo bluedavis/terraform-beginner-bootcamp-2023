@@ -136,3 +136,30 @@ Gitpod has default env vars set for every workspace. To set new env vars in Gitp
 `env | grep GITPOD` - lists all default Gitpod env vars
 `gp env VARIABLE` - set a variable in gitpod
 `echo VARIABLE` - (create a new workspace to view newly set env vars
+
+### AWS CLI Installation
+
+AWS CLI is installed for the project via the bash script [`./bin/install_aws_cli`](./bin/install_aws_cli)
+
+[Getting Started Install (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+[AWS CLI Env Vars](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+
+We can check if our aws credentials are configured correctly by running the following AWS CLI command: 
+```sh
+aws sts get-caller-identity
+```
+
+If it is successful you should see a json payload return: 
+
+```json
+{"UserId": "AIXAU7JXXLKQXXXCXXC5",
+    "Account": "335370644609",
+    "Arn": "arn:aws:iam::342100630177:user/terraform-beginner-bootcamp"
+}
+```
+Use `aws configure` when you are on a local computer and when in a cloud developer environement you'll want to set your env vars.
+```
+### Create an new AWS IAM user
+
+We'll need to generate AWS CLI credentials from an IAM user in order to use the AWS CLI. To create a new user please follow these instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
