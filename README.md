@@ -245,3 +245,43 @@ And insert the following code (replace your token) in the file:
   }
 }
 ```
+
+## Create Bash Aliases
+
+To make the alias persistent you need to declare it in the ~/.bash_profile or ~/.bashrc file.
+
+`open /.bash_profile` - open the file in your text editor and insert:
+
+```sh
+alias alias_name="command_to_run
+```
+
+`source ~/.bash_profile` - you need to reload bash inorder for your change to be applied
+
+
+For more info on creating bash aliases see [How to Create Bash Aliases](https://linuxize.com/post/how-to-create-bash-aliases/)
+
+### Persist Aliases in Gitpod Using a Bash Script
+
+To ensure this new bash alias is applied to future Gitpod workspace, we created the file `set_tf_alias`:
+
+```sh
+#!/usr/bin/env bash
+
+#Check if the alias already ecxists in the .bash_profile
+grep -q 'alias tf="terraform"' ~/.bash_profile
+
+# $? is a special variable in bash that holds the exit status of the last command executed 
+
+if [[ $? != 0 ]]; then
+    #If the alias does not exist, append it
+    echo 'alias tf="terraform"' >> ~/.bash_profile
+    echo "Alias added successfully."
+else 
+    #Inform the user if the alias already exists
+    echo "Alias already exists in .bash_profile."
+fi
+
+#Optional: soure the .bash_profile to make the alias avaliable immediately
+source ~/.bash_profile
+```
