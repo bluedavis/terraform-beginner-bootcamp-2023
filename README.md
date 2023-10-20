@@ -286,3 +286,5 @@ fi
 #Optional: soure the .bash_profile to make the alias avaliable immediately
 source ~/.bash_profile
 ```
+
+STOP - Ended course before week 1: https://app.exampro.co/student/journey/terraform-cpb
